@@ -62,8 +62,40 @@ Using Junit Framework // 자바의 main 메서드를 통해서 실행하거나, 
 
 > @Repository -> 데이터 객체를 다루는 어노테이션
 
+- 자바 코드로 직접 스프링 빈 등록하기
+
+@Controller 는 그대로 사용하고, @Service 나 @Repository 를 등록하지 않고, @Configuration 과 @Bean 을 이용해서 등록한다.
+
+> @Configuration
+
+```java
+@Cofiguration
+public class SpringConfig{
+
+```
+
+스프링 컨테이너의 설정을 관리해주는 클래스를 생성해준 다음에, @Configuration 어노테이션으로 설정 객체라는 것을 나타내준다.
+
+> @Bean
+
 ```java
 
+    @Bean
+    public MemberService memberService(){
+        return new MemberService(memberRepository());
+    }
+
+    @Bean
+    public MemberRepository memberRepository(){
+        return new MemoryMemberRepository();
+    }
+
+}
+
+
+```
+
+```java
 private final MemberService memberService = new MemberService(); ( X )
 
 // 요로코롬
@@ -78,6 +110,8 @@ public MemberController(MemberService memberService){
 ```
 
 > @Autowired -> Controller 가 스프링을 생성할때, 같이 생성해준다. 그때 생성자를 호출하는데, 이때 생성자에 Autowired 가 있으면, 스프링 컨테이너 안에 존재하는 service ( 위 같은 경우 member Service )를 가져와 연결을 시켜준다. 이때 service 는 @Service 라는 어노테이션으로 스프링 컨테이너에 넣어져있어야 한다. 또한 Service에서 사용하고 있는 Repository 는 @Repository 라는 어노테이션으로 관리를 해줘야 한다.
+
+> @PostMapping("/something/something2") html 에서의 post 방식에서 ( 데이터를 담을때 사용되는 방법 ) // "redirect:/something" -> something으로 다시 http 통신을 전송한다.
 
 #### ETC
 
