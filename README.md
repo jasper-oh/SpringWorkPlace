@@ -113,6 +113,30 @@ public MemberController(MemberService memberService){
 
 > @PostMapping("/something/something2") html 에서의 post 방식에서 ( 데이터를 담을때 사용되는 방법 ) // "redirect:/something" -> something으로 다시 http 통신을 전송한다.
 
+@@@@ Thymeleaf List Extract
+
+@GetMapping 메소드에 Model 을 Param 을 받은 다음, addAttribute("members" , members) 되어 있는 객체를 전달한다.
+thymeleaf 는 member 를 렌더링 하여 보여준다.
+
+```html
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>이름</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="member : ${members}">
+        <td th:text="${member.id}"></td>
+        <td th:text="${member.name}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
 #### ETC
 
 @@@@ 배포하기 위해서는 ???
