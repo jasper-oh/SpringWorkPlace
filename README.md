@@ -116,7 +116,7 @@ public MemberController(MemberService memberService){
 @@@@ Thymeleaf List Extract
 
 @GetMapping 메소드에 Model 을 Param 을 받은 다음, addAttribute("members" , members) 되어 있는 객체를 전달한다.
-thymeleaf 는 member 를 렌더링 하여 보여준다.
+thymeleaf 는 member 를 렌더링 하여 브라우저가 보여준다.
 
 ```html
 <div>
