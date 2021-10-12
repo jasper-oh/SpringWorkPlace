@@ -151,7 +151,7 @@ thymeleaf 는 member 를 렌더링 하여 브라우저가 보여준다.
 순수 JDBC 와 동일한 환경설정을 하면 된다. 스프링 JdbcTemplate 과 MyBatis 같은 라이브러리는 JDBC API 에서 본 반복 코드를 대부분 제거해준다. ( ResultSet , Connection 등등 )
 하지만, SQL 은 직접 작성해야 한다.
 
-[코드 보기]()
+[코드 보기](https://github.com/jasper-oh/SpringWorkPlace/blob/master/src/main/java/com/jasper/learningspringfinal/repository/JdbcTemplateMemberRepository.java)
 
 #### Spring JPA
 
@@ -166,7 +166,7 @@ EntityManager 라는 객체를 불러 온다음 DI 시킨다.
 저장 같은 것은 persist(DTO 객체) 메소드
 pk 로 검색 find(DTO 객체.class , pk) 같은 식으로 작성 가능하다.
 
-[코드 보기]()
+[코드 보기](https://github.com/jasper-oh/SpringWorkPlace/blob/master/src/main/java/com/jasper/learningspringfinal/repository/JpaMemberRepository.java)
 
 #### ETC
 
