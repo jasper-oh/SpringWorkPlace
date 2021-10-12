@@ -149,6 +149,12 @@ thymeleaf 는 member 를 렌더링 하여 브라우저가 보여준다.
 순수 JDBC 와 동일한 환경설정을 하면 된다. 스프링 JdbcTemplate 과 MyBatis 같은 라이브러리는 JDBC API 에서 본 반복 코드를 대부분 제거해준다. ( ResultSet , Connection 등등 )
 하지만, SQL 은 직접 작성해야 한다. 
 
+#### Spring JPA
+
+JPA 는 기존의 반복 코드는 물론, 기본적인 SQL 도 JPA 가 직접 만들어서 실행해준다. 
+JPA 를 사용하면, SQL 과 데이터 중심의 설계에서 객체중심의 설계로 패러다임을 전환 가능
+그로인해 개발 생산성 높을 수 있다. 
+
 #### ETC
 
 @@@@ 배포하기 위해서는 ???
