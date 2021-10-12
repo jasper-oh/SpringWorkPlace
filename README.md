@@ -32,12 +32,14 @@ Thymeleaf Template Engine에 대해서 좀 더 공부를 해보자.
 
 Using Junit Framework // 자바의 main 메서드를 통해서 실행하거나, 웹 애플리케이션의 컨트롤러를 통해서 해당 기능을 실행한다, 이러한 방법은 준비하고 실행하는데 오래 걸리고, 반복 실행이 어렵고, 여러 테스트를 한번에 실행하기 어렵다는 단점이 있기 때문에.
 
-
 #### Spring Integration test ( 스프링 통합 테스트 )
+
 > @SpringBootTest -> 스프링 컨테이너와 테스트를 함께 실행한다.
 
-> @Transactional -> DB 에는 Auto-Commit 이라는 개념이 있는데, ( 이건 DB 마다 틀리긴하다.) Commit 을 해줘야 DB 에 적용이 된다. 결국 TEST 클래스에 이 어노테이션이 존재할 경우, 테스트가 끝났을 경우 그 쿼리( 트랜잭션을 ) 를 롤백 한다. 그렇기 때문에 
+> @Transactional -> DB 에는 Auto-Commit 이라는 개념이 있는데, ( 이건 DB 마다 틀리긴하다.) Commit 을 해줘야 DB 에 적용이 된다. 결국 TEST 클래스에 이 어노테이션이 존재할 경우, 테스트가 끝났을 경우 그 쿼리( 트랜잭션을 ) 를 롤백 한다. 그렇기 때문에
 > 쿼리를 실행할때 aftereach를 이용해서 지우지 않아도 된다. ( 다음 테스트에 영향을 주지 않는다. )
+
+> @Transactional 에 해당 하지 않는 메소드를 실행하고 싶을때, @Commit 이라는 메소드를 이용해서 실행한다.
 
 #### Annotation
 
@@ -147,13 +149,24 @@ thymeleaf 는 member 를 렌더링 하여 브라우저가 보여준다.
 #### Spring JdbcTemplate
 
 순수 JDBC 와 동일한 환경설정을 하면 된다. 스프링 JdbcTemplate 과 MyBatis 같은 라이브러리는 JDBC API 에서 본 반복 코드를 대부분 제거해준다. ( ResultSet , Connection 등등 )
-하지만, SQL 은 직접 작성해야 한다. 
+하지만, SQL 은 직접 작성해야 한다.
+
+[코드 보기]()
 
 #### Spring JPA
 
-JPA 는 기존의 반복 코드는 물론, 기본적인 SQL 도 JPA 가 직접 만들어서 실행해준다. 
+JPA 는 기존의 반복 코드는 물론, 기본적인 SQL 도 JPA 가 직접 만들어서 실행해준다.
 JPA 를 사용하면, SQL 과 데이터 중심의 설계에서 객체중심의 설계로 패러다임을 전환 가능
-그로인해 개발 생산성 높을 수 있다. 
+그로인해 개발 생산성 높을 수 있다.
+
+EntityManager 라는 객체를 불러 온다음 DI 시킨다.
+
+이 EntityManager 를 통해서 CRUD 를 실행 할 수 있는데, PK 값이 아닌 예를 들어, 이름으로 검색하기 같은 내용과 전체 내용을 불러오는 쿼리는 직접 써주어야 하지만, 나머지는 모두 쿼리를 사용하지 않고,
+
+저장 같은 것은 persist(DTO 객체) 메소드
+pk 로 검색 find(DTO 객체.class , pk) 같은 식으로 작성 가능하다.
+
+[코드 보기]()
 
 #### ETC
 
