@@ -32,6 +32,8 @@ Thymeleaf Template Engine에 대해서 좀 더 공부를 해보자.
 
 Using Junit Framework // 자바의 main 메서드를 통해서 실행하거나, 웹 애플리케이션의 컨트롤러를 통해서 해당 기능을 실행한다, 이러한 방법은 준비하고 실행하는데 오래 걸리고, 반복 실행이 어렵고, 여러 테스트를 한번에 실행하기 어렵다는 단점이 있기 떄문에.
 
+
+#### Spring Integration test ( 스프링 통합 테스트 )
 > @SpringBootTest -> 스프링 컨테이너와 테스트를 함께 실행한다.
 
 > @Transactional -> DB 에는 Auto-Commit 이라는 개념이 있는데, ( 이건 DB 마다 틀리긴하다.) Commit 을 해줘야 DB 에 적용이 된다. 결국 TEST 클래스에 이 어노테이션이 존재할 경우, 테스트가 끝났을 경우 그 쿼리( 트랜잭션을 ) 를 롤백 한다. 그렇기 때문에 
