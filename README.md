@@ -69,7 +69,7 @@ Using Junit Framework // 자바의 main 메서드를 통해서 실행하거나, 
 
 > @Service -> 비즈니스 로직인 서비스 또한 스프링에 의해서 관리 될 수 있게끔 만들어준다. ( 새로운 객체를 생성하는 것이 아닌, 생성자를 이용해서 ) 내부 종속성을 확인 해보면, @Component 가 있는 것을 확인할 수 있다.
 
-> @Repository -> 데이터 객체를 다루는 어노테이션
+> @Repository -> 데이터 객체를 다루는 어노테이션 ( @Component 라는 어노테이션 포함 되어 있다! )
 
 - 자바 코드로 직접 스프링 빈 등록하기
 
@@ -167,6 +167,46 @@ EntityManager 라는 객체를 불러 온다음 DI 시킨다.
 pk 로 검색 find(DTO 객체.class , pk) 같은 식으로 작성 가능하다.
 
 [코드 보기](https://github.com/jasper-oh/SpringWorkPlace/blob/master/src/main/java/com/jasper/learningspringfinal/repository/JpaMemberRepository.java)
+
+#### Spring Data JPA
+
+스프링 부트 + JPA 로도 개발 생산성이 증가하고, 코드는 줄어든다. 여기에 스프링 데이터 JPA 를 사용하면, 기존의 한계를 넘어 Repository에 구현 클래스 없이 인터페이스 만으로 개발을 완료할 수 있다. 그리고 반복 개발해온 기본 CRUD 기능도 스프링 데이터 JPA 가 모두 제공한다.
+
+spring data Jpa 의 기능을 정리하면,
+
+1. 인터페이스를 통한 기본적인 CRUD
+2. 'findByName' 이나 'findByEmail' 처럼 메서드 이름 만으로 조회 기능 제공
+3. 페이징 기능 자동 제공
+
++추가
+실무에서는 JPA 와 스프링 데이터 JPA를 기본으로 사용하고, 복잡한 동적 쿼리는 QueryDSL 이라는 라이브러리를 사용하면된다.
+QueryDSL을 사용하게 되면, 쿼리도 자바코드로 안전하게 작성이 가능하고, 동적 쿼리도 편리하게 작성할 수 있다.
+이러한 조합으로 해결하기 어려운 쿼리는 JPA 가 제공하는 네이티브 쿼리를 사용하거나, 앞서 학습한 스프링 JdbcTemplate 을 사용하면 된다.
+
+### AOP ( Aspect Oriented Programming )
+
+1. AOP 가 필요한 상황
+
+- 모든 메소드의 호출 시간을 측정하고 싶다면 ?
+- 공통 관심사항(cross cutting concern) vs 핵심 관심 사항 (core concern) 분리하기
+- 회원 가입 시간, 회원 조회 시간을 측정하고 싶다면 ?
+
+- 회원가입, 회원 조회등 핵심 관심사항과 시간을 측정하는 공통 관심 사항을 분리한다.
+- 시간을 측정하는 로직을 별도의 공통 로직으로 만들었다.
+- 핵심 관심 사항을 깔끔하게 유지 가능!
+- 변경이 필요하면 이 로직만 변경하면 된다.
+- 원하는 적용 대상을 선택할 수 있다.
+
+AOP 적용전
+
+helloController -> memberService -> memberRepository
+
+AOP 모든곳에 적용후
+[ 프록시 helloController ] -> helloController -> [ 프록시 memberService ] with joinPoint.proceed() -> memberService -> [ 프록시 memberRepository ] -> memberRepository
+
+( 프록시 주입 실험 memberService 가 인젝션 될때 .getClass 를 찍어보게 된다면 -> EnhancerBySpringCGLIB$$~ 이라고 뜬다. )
+
+결국 DI 장점이라고 볼 수 있다.
 
 #### ETC
 
